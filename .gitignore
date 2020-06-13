@@ -1,0 +1,39 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# general
+application-local.properties
+doc/notes
+*.log
+
+# compiled output
+bin/
+build/
+dist/
+tmp/
+out/
+out-tsc/
+target/
+
+# IDEs and editors
+.idea/
+.project
+.gradle
+.classpath
+.c9
+*.launch
+.settings
+*.sublime-workspace
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+ui/node_modules
+_temp/
+
+# System Files
+.DS_Store
+Thumbs.db
+*~
+.~*
