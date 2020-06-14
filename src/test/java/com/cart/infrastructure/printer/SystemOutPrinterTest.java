@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SystemOutPrinterTest {
 
-    Printer printer = new SystemOutPrinter();
+    private Printer printer = new SystemOutPrinter();
 
     @Test
     public void shouldPrintSummary() {

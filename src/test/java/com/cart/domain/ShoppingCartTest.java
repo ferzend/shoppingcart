@@ -4,12 +4,27 @@ import com.cart.domain.campaign.*;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ShoppingCartTest {
+    @Mock
+    private Discount discount1;
+    @Mock
+    private Discount discount2;
+    @Mock
+    private Discount discount3;
+    @Mock
+    private Coupon coupon;
 
     @Test
     public void shouldReturnNumberOfDifferentProducts() {
@@ -19,9 +34,9 @@ public class ShoppingCartTest {
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 5);
         shoppingCart.addProduct(PHONE_BY_ELECTRONIC_CATEGORY, 1);
 
-        int numberOfDifferentProdcut = shoppingCart.getNumberOfProduct();
+        int numberOfDifferentProduct = shoppingCart.getNumberOfProduct();
 
-        assertThat(numberOfDifferentProdcut).isEqualTo(3);
+        assertThat(numberOfDifferentProduct).isEqualTo(3);
     }
 
     @Test
@@ -38,25 +53,29 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void campaignDiscountShouldBeZero_whenNumberOfProductNotSuitable() {
+    public void campaignDiscountShouldBeEqualToApplicableDiscount_whenThereIsASuitableDiscountForCartCategories() {
+        BigDecimal applicableDiscount = BigDecimal.ZERO;
+        when(discount1.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(applicableDiscount);
+        when(discount1.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 1);
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 1);
 
-        shoppingCart.applyDiscounts(ELECTRONIC_AMOUNT_5_5, ELECTRONIC_RATE_20_3, ELECTRONIC_RATE_50_5);
+        shoppingCart.applyDiscounts(discount1);
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
-        assertThat(campaignDiscount).isEqualTo(BigDecimal.ZERO);
+        assertThat(campaignDiscount).isEqualTo(applicableDiscount);
     }
 
     @Test
     public void campaignDiscountShouldBeZero_whenThereIsNoSuitableDiscountForCartCategories() {
+        when(discount1.getCategoryId()).thenReturn(CATEGORY_COMPUTER.getCategoryId());
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 5);
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 7);
 
-        shoppingCart.applyDiscounts(COMPUTER_AMOUNT_5_5, COMPUTER_RATE_20_3, COMPUTER_RATE_50_5);
+        shoppingCart.applyDiscounts(discount1);
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
@@ -64,56 +83,57 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void shouldApplyMostProfitableDiscount_whenCartContainsOneCategory() {
+    public void shouldApplyMostProfitableDiscount() {
+        when(discount1.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(BigDecimal.TEN);
+        when(discount1.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
+        when(discount2.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(BigDecimal.ONE);
+        when(discount2.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
+
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 3);
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 2);
 
-        shoppingCart.applyDiscounts(ELECTRONIC_AMOUNT_5_5, ELECTRONIC_RATE_20_3, ELECTRONIC_RATE_50_5);
+        shoppingCart.applyDiscounts(discount1, discount2);
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
-        assertThat(campaignDiscount).isEqualTo(new BigDecimal("25.0"));
+        assertThat(campaignDiscount).isEqualTo(BigDecimal.TEN);
     }
 
     @Test
-    public void shouldApplyMostProfitableDiscountForEachCategory_whenCartContainsMoreThanOneCategory() {
+    public void shouldApplyMostProfitableDiscountForEachCategory() {
+        when(discount1.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal("10"));
+        when(discount1.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
+        when(discount2.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal("25"));
+        when(discount2.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
+        when(discount3.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal("5"));
+        when(discount3.getCategoryId()).thenReturn(CATEGORY_COMPUTER.getCategoryId());
+
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addProduct(APPLE_BY_COMPUTER_CATEGORY, 3);
         shoppingCart.addProduct(MOUSE_BY_COMPUTER_CATEGORY, 2);
         shoppingCart.addProduct(PHONE_BY_ELECTRONIC_CATEGORY, 5);
 
-        shoppingCart.applyDiscounts(COMPUTER_AMOUNT_5_5, ELECTRONIC_RATE_20_3, ELECTRONIC_RATE_50_5);
+        shoppingCart.applyDiscounts(discount1, discount2, discount3);
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
-        assertThat(campaignDiscount).isEqualTo(new BigDecimal("30.0"));
+        assertThat(campaignDiscount).isEqualTo(new BigDecimal("30"));
     }
 
     @Test
-    public void couponDiscountShouldBeZero_whenMinPurchaseAmountNotSuitable() {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 3);
-        shoppingCart.addProduct(MOUSE_BY_COMPUTER_CATEGORY, 1);
-
-        shoppingCart.applyCoupon(COUPON);
-
-        BigDecimal couponDicount = shoppingCart.getCouponDiscount();
-
-        assertThat(couponDicount).isEqualTo(BigDecimal.ZERO);
-    }
-
-    @Test
-    public void couponDiscountShouldBeGivenDiscount_whenMinPurchaseAmountNotSuitable() {
+    public void couponDiscountShouldBeEqualToApplicableDiscount() {
+        BigDecimal applicableDiscount = BigDecimal.TEN;
+        when(coupon.getApplicableDiscount(any(BigDecimal.class))).thenReturn(applicableDiscount);
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 5);
         shoppingCart.addProduct(MOUSE_BY_COMPUTER_CATEGORY, 5);
 
-        shoppingCart.applyCoupon(COUPON);
+        shoppingCart.applyCoupon(coupon);
 
         BigDecimal couponDiscount = shoppingCart.getCouponDiscount();
 
-        assertThat(couponDiscount).isEqualTo(new BigDecimal("5.0"));
+        assertThat(couponDiscount).isEqualTo(applicableDiscount);
     }
 
     private static final BigDecimal PRICE = new BigDecimal("10");
@@ -128,14 +148,4 @@ public class ShoppingCartTest {
     private static final Product APPLE_BY_ELECTRONIC_CATEGORY = new Product(PRODUCT_APPLE, PRICE, CATEGORY_ELECTRONIC);
     private static final Product MOUSE_BY_ELECTRONIC_CATEGORY = new Product(PRODUCT_MOUSE, PRICE, CATEGORY_ELECTRONIC);
     private static final Product PHONE_BY_ELECTRONIC_CATEGORY = new Product(PRODUCT_PHONE, PRICE, CATEGORY_ELECTRONIC);
-
-    private static final Discount ELECTRONIC_RATE_20_3 = new PercentageDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 20.0, 3);
-    private static final Discount ELECTRONIC_RATE_50_5 = new PercentageDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 50.0, 5);
-    private static final Discount ELECTRONIC_AMOUNT_5_5 = new FixedDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 5.0, 5);
-
-    private static final Discount COMPUTER_RATE_20_3 = new PercentageDiscount(CATEGORY_COMPUTER.getCategoryId(), 20.0, 3);
-    private static final Discount COMPUTER_RATE_50_5 = new PercentageDiscount(CATEGORY_COMPUTER.getCategoryId(), 50.0, 5);
-    private static final Discount COMPUTER_AMOUNT_5_5 = new FixedDiscount(CATEGORY_COMPUTER.getCategoryId(), 5.0, 5);
-
-    private static final Coupon COUPON = new FixedCoupon(100.0, 5.0);
 }

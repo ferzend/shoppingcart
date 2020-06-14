@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 public class ShoppingCart {
-    List<CartItem> products = new ArrayList<>();
+    private List<CartItem> products = new ArrayList<>();
 
     private BigDecimal campaignDiscount = BigDecimal.ZERO;
     private BigDecimal couponDiscount = BigDecimal.ZERO;
