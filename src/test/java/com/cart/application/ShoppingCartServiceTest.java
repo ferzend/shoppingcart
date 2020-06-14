@@ -43,7 +43,7 @@ public class ShoppingCartServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        when(campaignService.getCampaignsByCategories(any())).thenReturn(DISCOUNT_MAP);
+        when(campaignService.getDiscountsByCategories(any())).thenReturn(DISCOUNTS);
         when(campaignService.getCoupon()).thenReturn(Optional.ofNullable(COUPON));
         when(shoppingCart.getCartItems()).thenReturn(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3));
         when(shoppingCart.getCampaignDiscount()).thenReturn(new BigDecimal("10"));
@@ -59,7 +59,7 @@ public class ShoppingCartServiceTest {
 
         InOrder order = inOrder(shoppingCart);
 
-        order.verify(shoppingCart).applyDiscounts(DISCOUNT_MAP);
+        order.verify(shoppingCart).applyDiscounts(DISCOUNTS);
         order.verify(shoppingCart).applyCoupon(COUPON);
     }
 
@@ -81,11 +81,7 @@ public class ShoppingCartServiceTest {
     }
 
     private static final Discount discount = new PercentageDiscount(1, new BigDecimal(10), 3);
-    private static final Map<Integer, List<Discount>> DISCOUNT_MAP = new HashMap<Integer, List<Discount>>() {
-        {
-            put(1, Collections.singletonList(discount));
-        }
-    };
+    private static final List<Discount> DISCOUNTS = Collections.singletonList(discount);
     private static final Coupon COUPON = new FixedCoupon(new BigDecimal(100), new BigDecimal(5));
 
     private static final BigDecimal PRICE = new BigDecimal("10");

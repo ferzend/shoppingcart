@@ -30,10 +30,12 @@ public class ShoppingCart {
     }
 
     public void applyDiscounts(Discount... discounts) {
-        applyDiscounts(Arrays.stream(discounts).collect(groupingBy(Discount::getCategoryId)));
+        applyDiscounts(Arrays.asList(discounts));
     }
 
-    public void applyDiscounts(Map<Integer, List<Discount>> discountMap) {
+    public void applyDiscounts(List<Discount> discounts) {
+        Map<Integer, List<Discount>> discountMap = discounts.stream().collect(groupingBy(Discount::getCategoryId));
+
         for (Map.Entry<Integer, List<Discount>> discountGroupByCategory : discountMap.entrySet()) {
             BigDecimal mostProfitableDiscount = BigDecimal.ZERO;
             for (Discount discount : discountGroupByCategory.getValue()) {

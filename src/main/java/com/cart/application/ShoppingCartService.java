@@ -32,7 +32,7 @@ public class ShoppingCartService {
     }
 
     private void applyDiscounts(ShoppingCart shoppingCart) {
-        shoppingCart.applyDiscounts(campaignService.getCampaignsByCategories(shoppingCart.getCategories()));
+        shoppingCart.applyDiscounts(campaignService.getDiscountsByCategories(shoppingCart.getCategories()));
     }
 
     private void applyCoupon(ShoppingCart shoppingCart) {
