@@ -9,8 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CouponTest {
 
     @Test
-    public void applicableDiscountShouldBeZero_whenGivenAmountLessThanMinPurchaseAmount_forAmountCoupon() {
-        Coupon coupon = new AmountCoupon(100.0, 5.0);
+    public void applicableDiscountShouldBeZero_whenGivenAmountLessThanMinPurchaseAmount_forFixedCoupon() {
+        Coupon coupon = new FixedCoupon(100.0, 5.0);
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(99));
 
@@ -18,8 +18,8 @@ public class CouponTest {
     }
 
     @Test
-    public void applicableDiscountShouldBeGivenDiscount_whenGivenAmountEqualMinPurchaseAmount_forAmountCoupon() {
-        Coupon coupon = new AmountCoupon(100.0, 5.0);
+    public void applicableDiscountShouldBeGivenDiscount_whenGivenAmountEqualMinPurchaseAmount_forFixedCoupon() {
+        Coupon coupon = new FixedCoupon(100.0, 5.0);
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(100));
 
@@ -27,8 +27,8 @@ public class CouponTest {
     }
 
     @Test
-    public void applicableDiscountShouldBeGivenDiscount_whenGivenAmountGreaterThanMinPurchaseAmount_forAmountCoupon() {
-        Coupon coupon = new AmountCoupon(100.0, 5.0);
+    public void applicableDiscountShouldBeGivenDiscount_whenGivenAmountGreaterThanMinPurchaseAmount_forFixedCoupon() {
+        Coupon coupon = new FixedCoupon(100.0, 5.0);
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(101));
 
@@ -36,8 +36,8 @@ public class CouponTest {
     }
 
     @Test
-    public void applicableDiscountShouldBeZero_whenGivenAmountLessThanMinPurchaseAmount_forRateCoupon() {
-        Coupon coupon = new RateCoupon(100.0, 5.0);
+    public void applicableDiscountShouldBeZero_whenGivenAmountLessThanMinPurchaseAmount_forPercentageCoupon() {
+        Coupon coupon = new PercentageCoupon(100.0, 5.0);
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(99));
 
@@ -45,8 +45,8 @@ public class CouponTest {
     }
 
     @Test
-    public void applicableDiscountShouldBeRateOfGivenAmount_whenGivenAmountEqualMinPurchaseAmount_forRateCoupon() {
-        Coupon coupon = new RateCoupon(200.0, 5.0);
+    public void applicableDiscountShouldBeRateOfGivenAmount_whenGivenAmountEqualMinPurchaseAmount_forPercentageCoupon() {
+        Coupon coupon = new PercentageCoupon(200.0, 5.0);
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(200));
 
@@ -54,8 +54,8 @@ public class CouponTest {
     }
 
     @Test
-    public void applicableDiscountShouldBeRateOfGivenAmount_whenGivenAmountGreaterThanMinPurchaseAmount_forRateCoupon() {
-        Coupon coupon = new RateCoupon(200.0, 5.0);
+    public void applicableDiscountShouldBeRateOfGivenAmount_whenGivenAmountGreaterThanMinPurchaseAmount_forPercentageCoupon() {
+        Coupon coupon = new PercentageCoupon(200.0, 5.0);
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(201));
 

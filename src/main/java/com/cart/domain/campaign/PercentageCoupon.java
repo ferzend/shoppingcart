@@ -2,8 +2,8 @@ package com.cart.domain.campaign;
 
 import java.math.BigDecimal;
 
-public class RateCoupon extends Coupon {
-    public RateCoupon(Double minPurchaseAmount, Double discount) {
+public class PercentageCoupon extends Coupon {
+    public PercentageCoupon(Double minPurchaseAmount, Double discount) {
         super(minPurchaseAmount, discount);
     }
 

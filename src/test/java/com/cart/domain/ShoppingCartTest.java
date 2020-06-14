@@ -129,13 +129,13 @@ public class ShoppingCartTest {
     private static final Product MOUSE_BY_ELECTRONIC_CATEGORY = new Product(PRODUCT_MOUSE, PRICE, CATEGORY_ELECTRONIC);
     private static final Product PHONE_BY_ELECTRONIC_CATEGORY = new Product(PRODUCT_PHONE, PRICE, CATEGORY_ELECTRONIC);
 
-    private static final Discount ELECTRONIC_RATE_20_3 = new RateDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 20.0, 3);
-    private static final Discount ELECTRONIC_RATE_50_5 = new RateDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 50.0, 5);
-    private static final Discount ELECTRONIC_AMOUNT_5_5 = new AmountDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 5.0, 5);
+    private static final Discount ELECTRONIC_RATE_20_3 = new PercentageDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 20.0, 3);
+    private static final Discount ELECTRONIC_RATE_50_5 = new PercentageDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 50.0, 5);
+    private static final Discount ELECTRONIC_AMOUNT_5_5 = new FixedDiscount(CATEGORY_ELECTRONIC.getCategoryId(), 5.0, 5);
 
-    private static final Discount COMPUTER_RATE_20_3 = new RateDiscount(CATEGORY_COMPUTER.getCategoryId(), 20.0, 3);
-    private static final Discount COMPUTER_RATE_50_5 = new RateDiscount(CATEGORY_COMPUTER.getCategoryId(), 50.0, 5);
-    private static final Discount COMPUTER_AMOUNT_5_5 = new AmountDiscount(CATEGORY_COMPUTER.getCategoryId(), 5.0, 5);
+    private static final Discount COMPUTER_RATE_20_3 = new PercentageDiscount(CATEGORY_COMPUTER.getCategoryId(), 20.0, 3);
+    private static final Discount COMPUTER_RATE_50_5 = new PercentageDiscount(CATEGORY_COMPUTER.getCategoryId(), 50.0, 5);
+    private static final Discount COMPUTER_AMOUNT_5_5 = new FixedDiscount(CATEGORY_COMPUTER.getCategoryId(), 5.0, 5);
 
-    private static final Coupon COUPON = new AmountCoupon(100.0, 5.0);
+    private static final Coupon COUPON = new FixedCoupon(100.0, 5.0);
 }

@@ -3,10 +3,10 @@ package com.cart.application;
 import com.cart.domain.CartItem;
 import com.cart.domain.CartSummary;
 import com.cart.domain.ShoppingCart;
-import com.cart.domain.campaign.AmountCoupon;
+import com.cart.domain.campaign.FixedCoupon;
 import com.cart.domain.campaign.Coupon;
 import com.cart.domain.campaign.Discount;
-import com.cart.domain.campaign.RateDiscount;
+import com.cart.domain.campaign.PercentageDiscount;
 import com.cart.domain.delivery.DeliveryCostCalculator;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
@@ -80,13 +80,13 @@ public class ShoppingCartServiceTest {
                 .build();
     }
 
-    private static final Discount discount = new RateDiscount(1, 10.0, 3);
+    private static final Discount discount = new PercentageDiscount(1, 10.0, 3);
     private static final Map<Integer, List<Discount>> DISCOUNT_MAP = new HashMap<Integer, List<Discount>>() {
         {
             put(1, Collections.singletonList(discount));
         }
     };
-    private static final Coupon COUPON = new AmountCoupon(100d, 5d);
+    private static final Coupon COUPON = new FixedCoupon(100d, 5d);
 
     private static final BigDecimal PRICE = new BigDecimal("10");
     private static final String PRODUCT_APPLE = "apple";
