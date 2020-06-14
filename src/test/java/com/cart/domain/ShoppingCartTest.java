@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -86,7 +88,7 @@ public class ShoppingCartTest {
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 1);
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 1);
 
-        shoppingCart.applyDiscounts(discount1);
+        shoppingCart.applyDiscounts(Collections.singletonList(discount1));
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
@@ -100,7 +102,7 @@ public class ShoppingCartTest {
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 5);
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 7);
 
-        shoppingCart.applyDiscounts(discount1);
+        shoppingCart.applyDiscounts(Collections.singletonList(discount1));
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
@@ -118,7 +120,7 @@ public class ShoppingCartTest {
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 3);
         shoppingCart.addProduct(MOUSE_BY_ELECTRONIC_CATEGORY, 2);
 
-        shoppingCart.applyDiscounts(discount1, discount2);
+        shoppingCart.applyDiscounts(Arrays.asList(discount1, discount2));
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
@@ -139,7 +141,7 @@ public class ShoppingCartTest {
         shoppingCart.addProduct(MOUSE_BY_COMPUTER_CATEGORY, 2);
         shoppingCart.addProduct(PHONE_BY_ELECTRONIC_CATEGORY, 5);
 
-        shoppingCart.applyDiscounts(discount1, discount2, discount3);
+        shoppingCart.applyDiscounts(Arrays.asList(discount1, discount2, discount3));
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 

@@ -29,10 +29,6 @@ public class ShoppingCart {
         return cartItems.stream().filter(item-> item.getTitle().equals(product.getTitle())).findFirst();
     }
 
-    public void applyDiscounts(Discount... discounts) {
-        applyDiscounts(Arrays.asList(discounts));
-    }
-
     public void applyDiscounts(List<Discount> discounts) {
         Map<Integer, List<Discount>> discountMap = discounts.stream().collect(groupingBy(Discount::getCategoryId));
 
