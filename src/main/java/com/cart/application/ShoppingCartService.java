@@ -45,7 +45,7 @@ public class ShoppingCartService {
                 .cartItems(shoppingCart.getProducts())
                 .campaignDiscount(shoppingCart.getCampaignDiscount())
                 .couponDiscount(shoppingCart.getCouponDiscount())
-                .deliveryAmount(delivery)
+                .deliveryCost(delivery)
                 .build();
     }
 

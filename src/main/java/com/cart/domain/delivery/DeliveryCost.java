@@ -9,6 +9,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class DeliveryCost {
     private BigDecimal costPerDelivery;
-    private BigDecimal costPerProdcut;
+    private BigDecimal costPerProduct;
     private BigDecimal fixedCost;
 }

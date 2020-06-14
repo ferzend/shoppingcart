@@ -14,11 +14,11 @@ public class DeliveryCostCalculator {
     }
 
     public BigDecimal calculate(ShoppingCart shoppingCart) {
-        deliveryCost = deliveryService.getDeliveryCost();
-
         if (shoppingCart.isEmpty()) {
             return BigDecimal.ZERO;
         }
+
+        deliveryCost = deliveryService.getDeliveryCost();
 
         return getCategoryCost(shoppingCart).add(getProductCost(shoppingCart)).add(deliveryCost.getFixedCost());
     }
@@ -28,6 +28,6 @@ public class DeliveryCostCalculator {
     }
 
     private BigDecimal getProductCost(ShoppingCart shoppingCart) {
-        return deliveryCost.getCostPerProdcut().multiply(BigDecimal.valueOf(shoppingCart.getNumberOfProduct()));
+        return deliveryCost.getCostPerProduct().multiply(BigDecimal.valueOf(shoppingCart.getNumberOfProduct()));
     }
 }

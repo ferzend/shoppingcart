@@ -7,7 +7,7 @@ public class AmountDiscount extends Discount {
         super(categoryId, discount, minNumberOfProduct);
     }
 
-    public BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal totalPriceOfProducts) {
+    public BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal amount) {
         if (isApplicable(numberOfProduct)) {
             return BigDecimal.valueOf(getDiscount());
         }

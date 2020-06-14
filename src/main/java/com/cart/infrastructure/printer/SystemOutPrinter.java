@@ -26,7 +26,7 @@ public class SystemOutPrinter implements Printer {
         }
 
         builder.append("Total Discount: ").append(cartSummary.getCampaignDiscount().add(cartSummary.getCouponDiscount())).append("\n");
-        builder.append("Delivery: ").append(cartSummary.getDeliveryAmount());
+        builder.append("Delivery: ").append(cartSummary.getDeliveryCost());
 
         String printedSummary = builder.toString();
         System.out.print(printedSummary);

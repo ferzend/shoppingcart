@@ -21,7 +21,7 @@ public class SystemOutPrinterTest {
                 .cartItems(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3, CART_ITEM_4, CART_ITEM_5))
                 .campaignDiscount(new BigDecimal("10"))
                 .couponDiscount(new BigDecimal("5"))
-                .deliveryAmount(new BigDecimal("7.99"))
+                .deliveryCost(new BigDecimal("7.99"))
                 .build();
 
         String printedSummary = printer.print(summary);

@@ -7,9 +7,9 @@ public class RateDiscount extends Discount {
         super(categoryId, discount, minNumberOfProduct);
     }
 
-    public BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal totalPriceOfProducts) {
+    public BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal amount) {
         if (isApplicable(numberOfProduct)) {
-            return totalPriceOfProducts.multiply(BigDecimal.valueOf(getDiscount())).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_UP);
+            return amount.multiply(BigDecimal.valueOf(getDiscount())).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_UP);
         }
         return BigDecimal.ZERO;
     }

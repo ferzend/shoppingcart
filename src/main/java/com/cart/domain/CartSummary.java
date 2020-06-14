@@ -12,5 +12,5 @@ public class CartSummary {
     private List<CartItem> cartItems;
     private BigDecimal campaignDiscount;
     private BigDecimal couponDiscount;
-    private BigDecimal deliveryAmount;
+    private BigDecimal deliveryCost;
 }

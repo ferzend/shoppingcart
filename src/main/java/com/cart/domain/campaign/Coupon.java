@@ -15,7 +15,7 @@ public abstract class Coupon {
         return BigDecimal.valueOf(getMinPurchaseAmount()).compareTo(amount) <= 0;
     }
 
-    public abstract BigDecimal getApplicableDiscount(BigDecimal totalPriceOfProducts);
+    public abstract BigDecimal getApplicableDiscount(BigDecimal amount);
 
     public Double getMinPurchaseAmount() {
         return minPurchaseAmount;

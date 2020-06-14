@@ -47,8 +47,8 @@ public class ShoppingCart {
             return BigDecimal.ZERO;
         }
         int numberOfProduct = productsByCategory.stream().map(CartItem::getQuantity).reduce(Integer::sum).get();
-        BigDecimal categoryTotalPrice = productsByCategory.stream().map(CartItem::getTotalPrice).reduce(BigDecimal::add).get();
-        return discount.getApplicableDiscount(numberOfProduct, categoryTotalPrice);
+        BigDecimal totalAmount = productsByCategory.stream().map(CartItem::getTotalPrice).reduce(BigDecimal::add).get();
+        return discount.getApplicableDiscount(numberOfProduct, totalAmount);
 
     }
 

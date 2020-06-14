@@ -13,7 +13,7 @@ public abstract class Discount {
         this.minNumberOfProduct = minNumberOfProduct;
     }
 
-    public abstract BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal totalPriceOfProducts);
+    public abstract BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal amount);
 
     boolean isApplicable(int numberOfProduct) {
         return numberOfProduct >= getMinNumberOfProduct();
