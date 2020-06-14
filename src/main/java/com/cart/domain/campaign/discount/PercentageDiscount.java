@@ -9,7 +9,7 @@ public class PercentageDiscount extends Discount {
 
     public BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal amount) {
         if (isApplicable(numberOfProduct)) {
-            return amount.multiply(getDiscount()).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_UP);
+            return amount.multiply(getDiscount()).divide(new BigDecimal(100), BigDecimal.ROUND_HALF_UP);
         }
         return BigDecimal.ZERO;
     }

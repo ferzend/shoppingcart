@@ -3,6 +3,7 @@ package com.cart.application;
 import com.cart.domain.CartItem;
 import com.cart.domain.CartSummary;
 import com.cart.domain.ShoppingCart;
+import com.cart.domain.campaign.coupon.CouponService;
 import com.cart.domain.campaign.coupon.FixedCoupon;
 import com.cart.domain.campaign.coupon.Coupon;
 import com.cart.domain.campaign.discount.Discount;
@@ -10,7 +11,7 @@ import com.cart.domain.campaign.discount.PercentageDiscount;
 import com.cart.domain.delivery.DeliveryCostCalculator;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
-import com.cart.domain.campaign.CampaignService;
+import com.cart.domain.campaign.discount.DiscountService;
 import com.cart.domain.printer.CartPrinter;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,9 @@ public class ShoppingCartServiceTest {
     @Mock
     private DeliveryCostCalculator deliveryCostCalculator;
     @Mock
-    private CampaignService campaignService;
+    private DiscountService discountService;
+    @Mock
+    private CouponService couponService;
     @Mock
     private CartPrinter cartPrinter;
     @Mock
@@ -43,14 +46,14 @@ public class ShoppingCartServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        when(campaignService.getDiscountsByCategories(any())).thenReturn(DISCOUNTS);
-        when(campaignService.getCoupon()).thenReturn(Optional.ofNullable(COUPON));
+        when(discountService.getDiscountsByCategories(any())).thenReturn(DISCOUNTS);
+        when(couponService.getCoupon()).thenReturn(Optional.ofNullable(COUPON));
         when(shoppingCart.getCartItems()).thenReturn(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3));
         when(shoppingCart.getCampaignDiscount()).thenReturn(new BigDecimal("10"));
         when(shoppingCart.getCouponDiscount()).thenReturn(new BigDecimal("5"));
         when(deliveryCostCalculator.calculate(shoppingCart)).thenReturn(new BigDecimal("7.99"));
 
-        shoppingCartService = new ShoppingCartService(deliveryCostCalculator, campaignService, cartPrinter);
+        shoppingCartService = new ShoppingCartService(deliveryCostCalculator, discountService, couponService, cartPrinter);
     }
 
     @Test
