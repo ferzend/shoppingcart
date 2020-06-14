@@ -129,11 +129,11 @@ public class ShoppingCartTest {
 
     @Test
     public void shouldApplyMostProfitableDiscountForEachCategory() {
-        when(discount1.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal("10"));
+        when(discount1.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal(10));
         when(discount1.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
-        when(discount2.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal("25"));
+        when(discount2.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal(25));
         when(discount2.getCategoryId()).thenReturn(CATEGORY_ELECTRONIC.getCategoryId());
-        when(discount3.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal("5"));
+        when(discount3.getApplicableDiscount(anyInt(), any(BigDecimal.class))).thenReturn(new BigDecimal(5));
         when(discount3.getCategoryId()).thenReturn(CATEGORY_COMPUTER.getCategoryId());
 
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -145,7 +145,7 @@ public class ShoppingCartTest {
 
         BigDecimal campaignDiscount = shoppingCart.getCampaignDiscount();
 
-        assertThat(campaignDiscount).isEqualTo(new BigDecimal("30"));
+        assertThat(campaignDiscount).isEqualTo(new BigDecimal(30));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class ShoppingCartTest {
         assertThat(couponDiscount).isEqualTo(applicableDiscount);
     }
 
-    private static final BigDecimal PRICE = new BigDecimal("10");
+    private static final BigDecimal PRICE = new BigDecimal(10);
     private static final String PRODUCT_APPLE = "apple";
     private static final String PRODUCT_MOUSE = "mouse";
     private static final String PRODUCT_PHONE = "phone";

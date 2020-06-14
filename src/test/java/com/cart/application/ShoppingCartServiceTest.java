@@ -49,9 +49,9 @@ public class ShoppingCartServiceTest {
         when(discountService.getDiscountsByCategories(any())).thenReturn(DISCOUNTS);
         when(couponService.getCoupon()).thenReturn(Optional.ofNullable(COUPON));
         when(shoppingCart.getCartItems()).thenReturn(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3));
-        when(shoppingCart.getCampaignDiscount()).thenReturn(new BigDecimal("10"));
-        when(shoppingCart.getCouponDiscount()).thenReturn(new BigDecimal("5"));
-        when(deliveryCostCalculator.calculate(shoppingCart)).thenReturn(new BigDecimal("7.99"));
+        when(shoppingCart.getCampaignDiscount()).thenReturn(new BigDecimal(10));
+        when(shoppingCart.getCouponDiscount()).thenReturn(new BigDecimal(5));
+        when(deliveryCostCalculator.calculate(shoppingCart)).thenReturn(new BigDecimal(7.99));
 
         shoppingCartService = new ShoppingCartService(deliveryCostCalculator, discountService, couponService, cartPrinter);
     }
@@ -77,9 +77,9 @@ public class ShoppingCartServiceTest {
     private CartSummary expectedSummary() {
         return CartSummary.builder()
                 .cartItems(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3))
-                .couponDiscount(new BigDecimal("5"))
-                .campaignDiscount(new BigDecimal("10"))
-                .deliveryCost(new BigDecimal("7.99"))
+                .couponDiscount(new BigDecimal(5))
+                .campaignDiscount(new BigDecimal(10))
+                .deliveryCost(new BigDecimal(7.99))
                 .build();
     }
 
@@ -87,7 +87,7 @@ public class ShoppingCartServiceTest {
     private static final List<Discount> DISCOUNTS = Collections.singletonList(discount);
     private static final Coupon COUPON = new FixedCoupon(new BigDecimal(100), new BigDecimal(5));
 
-    private static final BigDecimal PRICE = new BigDecimal("10");
+    private static final BigDecimal PRICE = new BigDecimal(10);
     private static final String PRODUCT_APPLE = "apple";
     private static final String PRODUCT_MOUSE = "mouse";
     private static final String PRODUCT_PHONE = "phone";

@@ -8,6 +8,7 @@ import com.cart.domain.product.Product;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,10 +28,10 @@ public class SystemOutCartPrinterTest {
 
         String printedSummary = cartPrinter.print(summary);
 
-        assertThat(printedSummary).isEqualTo(expectedPrintedSummar);
+        assertThat(printedSummary).isEqualTo(expectedPrintedSummary);
     }
 
-    private static final String expectedPrintedSummar =
+    private static final String expectedPrintedSummary =
             "Category: computer\n" +
             "mouse - 1 - 10 - 10\n" +
             "phone - 7 - 10 - 70\n" +
@@ -41,7 +42,7 @@ public class SystemOutCartPrinterTest {
             "Total Discount: 15\n" +
             "Delivery: 7.99";
 
-    private static final BigDecimal PRICE = new BigDecimal("10");
+    private static final BigDecimal PRICE = new BigDecimal(10);
     private static final String PRODUCT_APPLE = "apple";
     private static final String PRODUCT_MOUSE = "mouse";
     private static final String PRODUCT_PHONE = "phone";

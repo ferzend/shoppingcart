@@ -23,7 +23,7 @@ public class DeliveryCostCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-        when(deliveryService.getDeliveryCost()).thenReturn(new DeliveryCost(new BigDecimal("2"), new BigDecimal("1"), new BigDecimal("2.99")));
+        when(deliveryService.getDeliveryCost()).thenReturn(new DeliveryCost(new BigDecimal(2), new BigDecimal(1), new BigDecimal(2.99)));
         deliveryCostCalculator = new DeliveryCostCalculator(deliveryService);
     }
 
@@ -43,7 +43,7 @@ public class DeliveryCostCalculatorTest {
 
         BigDecimal deliveryCost = deliveryCostCalculator.calculate(shoppingCart);
 
-        assertThat(deliveryCost).isEqualTo(new BigDecimal("5.99"));
+        assertThat(deliveryCost).isEqualTo(new BigDecimal(5.99));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DeliveryCostCalculatorTest {
 
         BigDecimal deliveryCost = deliveryCostCalculator.calculate(shoppingCart);
 
-        assertThat(deliveryCost).isEqualTo(new BigDecimal("6.99"));
+        assertThat(deliveryCost).isEqualTo(new BigDecimal(6.99));
     }
 
     @Test
@@ -65,10 +65,10 @@ public class DeliveryCostCalculatorTest {
 
         BigDecimal deliveryCost = deliveryCostCalculator.calculate(shoppingCart);
 
-        assertThat(deliveryCost).isEqualTo(new BigDecimal("8.99"));
+        assertThat(deliveryCost).isEqualTo(new BigDecimal(8.99));
     }
 
-    private static final BigDecimal PRICE = new BigDecimal("10");
+    private static final BigDecimal PRICE = new BigDecimal(10);
     private static final String PRODUCT_APPLE = "apple";
     private static final String PRODUCT_MOUSE = "mouse";
 
