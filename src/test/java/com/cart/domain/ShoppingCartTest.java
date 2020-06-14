@@ -1,6 +1,7 @@
 package com.cart.domain;
 
-import com.cart.domain.campaign.*;
+import com.cart.domain.campaign.coupon.Coupon;
+import com.cart.domain.campaign.discount.Discount;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
 import org.junit.Test;

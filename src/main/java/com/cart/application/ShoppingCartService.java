@@ -2,7 +2,7 @@ package com.cart.application;
 
 import com.cart.domain.CartSummary;
 import com.cart.domain.ShoppingCart;
-import com.cart.domain.campaign.Coupon;
+import com.cart.domain.campaign.coupon.Coupon;
 import com.cart.domain.delivery.DeliveryCostCalculator;
 import com.cart.domain.campaign.CampaignService;
 import com.cart.domain.printer.CartPrinter;
@@ -32,7 +32,7 @@ public class ShoppingCartService {
     }
 
     private void applyDiscounts(ShoppingCart shoppingCart) {
-        shoppingCart.applyDiscounts(campaignService.getCapaignsByCategories(shoppingCart.getCategories()));
+        shoppingCart.applyDiscounts(campaignService.getCampaignsByCategories(shoppingCart.getCategories()));
     }
 
     private void applyCoupon(ShoppingCart shoppingCart) {

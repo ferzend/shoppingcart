@@ -3,10 +3,10 @@ package com.cart.application;
 import com.cart.domain.CartItem;
 import com.cart.domain.CartSummary;
 import com.cart.domain.ShoppingCart;
-import com.cart.domain.campaign.FixedCoupon;
-import com.cart.domain.campaign.Coupon;
-import com.cart.domain.campaign.Discount;
-import com.cart.domain.campaign.PercentageDiscount;
+import com.cart.domain.campaign.coupon.FixedCoupon;
+import com.cart.domain.campaign.coupon.Coupon;
+import com.cart.domain.campaign.discount.Discount;
+import com.cart.domain.campaign.discount.PercentageDiscount;
 import com.cart.domain.delivery.DeliveryCostCalculator;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
@@ -43,7 +43,7 @@ public class ShoppingCartServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        when(campaignService.getCapaignsByCategories(any())).thenReturn(DISCOUNT_MAP);
+        when(campaignService.getCampaignsByCategories(any())).thenReturn(DISCOUNT_MAP);
         when(campaignService.getCoupon()).thenReturn(Optional.ofNullable(COUPON));
         when(shoppingCart.getCartItems()).thenReturn(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3));
         when(shoppingCart.getCampaignDiscount()).thenReturn(new BigDecimal("10"));
@@ -80,13 +80,13 @@ public class ShoppingCartServiceTest {
                 .build();
     }
 
-    private static final Discount discount = new PercentageDiscount(1, 10.0, 3);
+    private static final Discount discount = new PercentageDiscount(1, new BigDecimal(10), 3);
     private static final Map<Integer, List<Discount>> DISCOUNT_MAP = new HashMap<Integer, List<Discount>>() {
         {
             put(1, Collections.singletonList(discount));
         }
     };
-    private static final Coupon COUPON = new FixedCoupon(100d, 5d);
+    private static final Coupon COUPON = new FixedCoupon(new BigDecimal(100), new BigDecimal(5));
 
     private static final BigDecimal PRICE = new BigDecimal("10");
     private static final String PRODUCT_APPLE = "apple";

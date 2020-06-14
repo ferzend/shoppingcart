@@ -1,15 +1,15 @@
-package com.cart.domain.campaign;
+package com.cart.domain.campaign.discount;
 
 import java.math.BigDecimal;
 
 public class FixedDiscount extends Discount {
-    public FixedDiscount(int categoryId, Double discount, int minNumberOfProduct) {
+    public FixedDiscount(int categoryId, BigDecimal discount, int minNumberOfProduct) {
         super(categoryId, discount, minNumberOfProduct);
     }
 
     public BigDecimal getApplicableDiscount(int numberOfProduct, BigDecimal amount) {
         if (isApplicable(numberOfProduct)) {
-            return BigDecimal.valueOf(getDiscount());
+            return getDiscount();
         }
         return BigDecimal.ZERO;
     }

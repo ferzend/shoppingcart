@@ -1,13 +1,13 @@
-package com.cart.domain.campaign;
+package com.cart.domain.campaign.discount;
 
 import java.math.BigDecimal;
 
 public abstract class Discount {
     private int categoryId;
-    private Double discount;
+    private BigDecimal discount;
     private int minNumberOfProduct;
 
-    public Discount(int categoryId, Double discount, int minNumberOfProduct) {
+    public Discount(int categoryId, BigDecimal discount, int minNumberOfProduct) {
         this.categoryId = categoryId;
         this.discount = discount;
         this.minNumberOfProduct = minNumberOfProduct;
@@ -23,7 +23,7 @@ public abstract class Discount {
         return categoryId;
     }
 
-    public Double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 

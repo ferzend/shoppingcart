@@ -1,27 +1,27 @@
-package com.cart.domain.campaign;
+package com.cart.domain.campaign.coupon;
 
 import java.math.BigDecimal;
 
 public abstract class Coupon {
-    private Double minPurchaseAmount;
-    private Double discount;
+    private BigDecimal minPurchaseAmount;
+    private BigDecimal discount;
 
-    public Coupon(Double minPurchaseAmount, Double discount) {
+    public Coupon(BigDecimal minPurchaseAmount, BigDecimal discount) {
         this.minPurchaseAmount = minPurchaseAmount;
         this.discount = discount;
     }
 
     boolean isApplicable(BigDecimal amount) {
-        return BigDecimal.valueOf(getMinPurchaseAmount()).compareTo(amount) <= 0;
+        return getMinPurchaseAmount().compareTo(amount) <= 0;
     }
 
     public abstract BigDecimal getApplicableDiscount(BigDecimal amount);
 
-    public Double getMinPurchaseAmount() {
+    public BigDecimal getMinPurchaseAmount() {
         return minPurchaseAmount;
     }
 
-    public Double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 }

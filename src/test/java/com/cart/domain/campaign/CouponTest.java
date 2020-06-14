@@ -1,5 +1,8 @@
 package com.cart.domain.campaign;
 
+import com.cart.domain.campaign.coupon.Coupon;
+import com.cart.domain.campaign.coupon.FixedCoupon;
+import com.cart.domain.campaign.coupon.PercentageCoupon;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -10,7 +13,7 @@ public class CouponTest {
 
     @Test
     public void applicableDiscountShouldBeZero_whenGivenAmountLessThanMinPurchaseAmount_forFixedCoupon() {
-        Coupon coupon = new FixedCoupon(100.0, 5.0);
+        Coupon coupon = new FixedCoupon(new BigDecimal(100), new BigDecimal(5));
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(99));
 
@@ -19,25 +22,25 @@ public class CouponTest {
 
     @Test
     public void applicableDiscountShouldBeGivenDiscount_whenGivenAmountEqualMinPurchaseAmount_forFixedCoupon() {
-        Coupon coupon = new FixedCoupon(100.0, 5.0);
+        Coupon coupon = new FixedCoupon(new BigDecimal(100), new BigDecimal(5));
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(100));
 
-        assertThat(applicableDiscount).isEqualTo(new BigDecimal("5.0"));
+        assertThat(applicableDiscount).isEqualTo(new BigDecimal(5));
     }
 
     @Test
     public void applicableDiscountShouldBeGivenDiscount_whenGivenAmountGreaterThanMinPurchaseAmount_forFixedCoupon() {
-        Coupon coupon = new FixedCoupon(100.0, 5.0);
+        Coupon coupon = new FixedCoupon(new BigDecimal(100), new BigDecimal(5));
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(101));
 
-        assertThat(applicableDiscount).isEqualTo(new BigDecimal("5.0"));
+        assertThat(applicableDiscount).isEqualTo(new BigDecimal(5));
     }
 
     @Test
     public void applicableDiscountShouldBeZero_whenGivenAmountLessThanMinPurchaseAmount_forPercentageCoupon() {
-        Coupon coupon = new PercentageCoupon(100.0, 5.0);
+        Coupon coupon = new PercentageCoupon(new BigDecimal(100), new BigDecimal(5));
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(99));
 
@@ -46,19 +49,19 @@ public class CouponTest {
 
     @Test
     public void applicableDiscountShouldBeRateOfGivenAmount_whenGivenAmountEqualMinPurchaseAmount_forPercentageCoupon() {
-        Coupon coupon = new PercentageCoupon(200.0, 5.0);
+        Coupon coupon = new PercentageCoupon(new BigDecimal(200), new BigDecimal(5));
 
         BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(200));
 
-        assertThat(applicableDiscount).isEqualTo(new BigDecimal("10.0"));
+        assertThat(applicableDiscount).isEqualTo(new BigDecimal(10));
     }
 
     @Test
     public void applicableDiscountShouldBeRateOfGivenAmount_whenGivenAmountGreaterThanMinPurchaseAmount_forPercentageCoupon() {
-        Coupon coupon = new PercentageCoupon(200.0, 5.0);
+        Coupon coupon = new PercentageCoupon(new BigDecimal(200), new BigDecimal(5));
 
-        BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(201));
+        BigDecimal applicableDiscount = coupon.getApplicableDiscount(new BigDecimal(220));
 
-        assertThat(applicableDiscount).isEqualTo(new BigDecimal("10.1"));
+        assertThat(applicableDiscount).isEqualTo(new BigDecimal(11));
     }
 }

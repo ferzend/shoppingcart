@@ -1,7 +1,7 @@
 package com.cart.domain;
 
-import com.cart.domain.campaign.Coupon;
-import com.cart.domain.campaign.Discount;
+import com.cart.domain.campaign.coupon.Coupon;
+import com.cart.domain.campaign.discount.Discount;
 import com.cart.domain.product.Product;
 
 import java.math.BigDecimal;
