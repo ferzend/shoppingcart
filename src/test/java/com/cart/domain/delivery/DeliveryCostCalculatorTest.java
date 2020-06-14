@@ -3,7 +3,6 @@ package com.cart.domain.delivery;
 import com.cart.domain.ShoppingCart;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
-import com.cart.infrastructure.delivery.DeliveryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

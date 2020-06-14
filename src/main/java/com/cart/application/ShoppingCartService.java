@@ -4,8 +4,8 @@ import com.cart.domain.CartSummary;
 import com.cart.domain.ShoppingCart;
 import com.cart.domain.campaign.Coupon;
 import com.cart.domain.delivery.DeliveryCostCalculator;
-import com.cart.infrastructure.campaign.CampaignService;
-import com.cart.infrastructure.printer.Printer;
+import com.cart.domain.campaign.CampaignService;
+import com.cart.domain.printer.CartPrinter;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -13,12 +13,12 @@ import java.util.Optional;
 public class ShoppingCartService {
     private DeliveryCostCalculator deliveryCostCalculator;
     private CampaignService campaignService;
-    private Printer printer;
+    private CartPrinter cartPrinter;
 
-    public ShoppingCartService(DeliveryCostCalculator deliveryCostCalculator, CampaignService campaignService, Printer printer) {
+    public ShoppingCartService(DeliveryCostCalculator deliveryCostCalculator, CampaignService campaignService, CartPrinter cartPrinter) {
         this.deliveryCostCalculator = deliveryCostCalculator;
         this.campaignService = campaignService;
-        this.printer = printer;
+        this.cartPrinter = cartPrinter;
     }
 
     public CartSummary calculateSummary(ShoppingCart shoppingCart) {
@@ -26,7 +26,7 @@ public class ShoppingCartService {
         applyDiscounts(shoppingCart);
         applyCoupon(shoppingCart);
         CartSummary cartSummary = createCartSummary(shoppingCart, delivery);
-        printer.print(cartSummary);
+        cartPrinter.print(cartSummary);
 
         return cartSummary;
     }
@@ -42,7 +42,7 @@ public class ShoppingCartService {
 
     private CartSummary createCartSummary(ShoppingCart shoppingCart, BigDecimal delivery) {
         return CartSummary.builder()
-                .cartItems(shoppingCart.getProducts())
+                .cartItems(shoppingCart.getCartItems())
                 .campaignDiscount(shoppingCart.getCampaignDiscount())
                 .couponDiscount(shoppingCart.getCouponDiscount())
                 .deliveryCost(delivery)

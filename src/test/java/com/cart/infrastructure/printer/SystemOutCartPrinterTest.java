@@ -2,6 +2,7 @@ package com.cart.infrastructure.printer;
 
 import com.cart.domain.CartItem;
 import com.cart.domain.CartSummary;
+import com.cart.domain.printer.CartPrinter;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
 import org.junit.Test;
@@ -11,9 +12,9 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SystemOutPrinterTest {
+public class SystemOutCartPrinterTest {
 
-    private Printer printer = new SystemOutPrinter();
+    private CartPrinter cartPrinter = new SystemOutCartPrinter();
 
     @Test
     public void shouldPrintSummary() {
@@ -24,7 +25,7 @@ public class SystemOutPrinterTest {
                 .deliveryCost(new BigDecimal("7.99"))
                 .build();
 
-        String printedSummary = printer.print(summary);
+        String printedSummary = cartPrinter.print(summary);
 
         assertThat(printedSummary).isEqualTo(expectedPrintedSummar);
     }

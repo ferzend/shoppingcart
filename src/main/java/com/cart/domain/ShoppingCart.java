@@ -5,22 +5,28 @@ import com.cart.domain.campaign.Discount;
 import com.cart.domain.product.Product;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
 public class ShoppingCart {
-    private List<CartItem> products = new ArrayList<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
     private BigDecimal campaignDiscount = BigDecimal.ZERO;
     private BigDecimal couponDiscount = BigDecimal.ZERO;
 
     public void addProduct(Product product, int quantity) {
-        products.add(new CartItem(product, quantity));
+        Optional<CartItem> cartItem = getCartItem(product);
+        if (cartItem.isPresent()) {
+            cartItem.get().incrementQuantityBy(quantity);
+        } else {
+            cartItems.add(new CartItem(product, quantity));
+        }
+    }
+
+    private Optional<CartItem> getCartItem(Product product) {
+        return cartItems.stream().filter(item-> item.getTitle().equals(product.getTitle())).findFirst();
     }
 
     public void applyDiscounts(Discount... discounts) {
@@ -53,7 +59,7 @@ public class ShoppingCart {
     }
 
     private List<CartItem> getProductsByCategory(int categoryId) {
-        return products.stream().filter(item-> item.getCategoryId() == categoryId).collect(Collectors.toList());
+        return cartItems.stream().filter(item-> item.getCategoryId() == categoryId).collect(Collectors.toList());
     }
 
     public void applyCoupon(Coupon coupon) {
@@ -61,31 +67,31 @@ public class ShoppingCart {
     }
 
     private BigDecimal getTotalAmount() {
-        return products.stream().map(CartItem::getTotalPrice).reduce(BigDecimal::add).get();
+        return cartItems.stream().map(CartItem::getTotalPrice).reduce(BigDecimal::add).get();
     }
 
     public boolean isEmpty() {
-        return products.isEmpty();
+        return cartItems.isEmpty();
     }
 
     public int getNumberOfCategory() {
-        return (int) products.stream().map(CartItem::getCategoryId).distinct().count();
+        return (int) cartItems.stream().map(CartItem::getCategoryId).distinct().count();
     }
 
     public List<Integer> getCategories() {
-        return products.stream().map(CartItem::getCategoryId).distinct().collect(Collectors.toList());
+        return cartItems.stream().map(CartItem::getCategoryId).distinct().collect(Collectors.toList());
     }
 
     public int getNumberOfProduct() {
-        return (int) products.stream().map(CartItem::getTitle).distinct().count();
+        return (int) cartItems.stream().map(CartItem::getTitle).distinct().count();
     }
 
     public BigDecimal getTotalAmountAfterDiscounts() {
         return getTotalAmount().subtract(campaignDiscount).subtract(couponDiscount);
     }
 
-    public List<CartItem> getProducts() {
-        return products;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
     public BigDecimal getCampaignDiscount() {

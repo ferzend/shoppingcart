@@ -10,8 +10,8 @@ import com.cart.domain.campaign.PercentageDiscount;
 import com.cart.domain.delivery.DeliveryCostCalculator;
 import com.cart.domain.product.Category;
 import com.cart.domain.product.Product;
-import com.cart.infrastructure.campaign.CampaignService;
-import com.cart.infrastructure.printer.Printer;
+import com.cart.domain.campaign.CampaignService;
+import com.cart.domain.printer.CartPrinter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class ShoppingCartServiceTest {
     @Mock
     private CampaignService campaignService;
     @Mock
-    private Printer printer;
+    private CartPrinter cartPrinter;
     @Mock
     private ShoppingCart shoppingCart;
 
@@ -45,12 +45,12 @@ public class ShoppingCartServiceTest {
     public void setUp() throws Exception {
         when(campaignService.getCapaignsByCategories(any())).thenReturn(DISCOUNT_MAP);
         when(campaignService.getCoupon()).thenReturn(Optional.ofNullable(COUPON));
-        when(shoppingCart.getProducts()).thenReturn(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3));
+        when(shoppingCart.getCartItems()).thenReturn(Arrays.asList(CART_ITEM_1, CART_ITEM_2, CART_ITEM_3));
         when(shoppingCart.getCampaignDiscount()).thenReturn(new BigDecimal("10"));
         when(shoppingCart.getCouponDiscount()).thenReturn(new BigDecimal("5"));
         when(deliveryCostCalculator.calculate(shoppingCart)).thenReturn(new BigDecimal("7.99"));
 
-        shoppingCartService = new ShoppingCartService(deliveryCostCalculator, campaignService, printer);
+        shoppingCartService = new ShoppingCartService(deliveryCostCalculator, campaignService, cartPrinter);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ShoppingCartServiceTest {
     public void shouldPrintSummary() {
         CartSummary summary = shoppingCartService.calculateSummary(shoppingCart);
 
-        verify(printer).print(summary);
+        verify(cartPrinter).print(summary);
         assertThat(summary.toString()).isEqualTo(expectedSummary().toString());
     }
 

@@ -1,7 +1,7 @@
-package com.cart.infrastructure.printer;
+package com.cart.domain.printer;
 
 import com.cart.domain.CartSummary;
 
-public interface Printer {
+public interface CartPrinter {
     String print(CartSummary cartSummary);
 }

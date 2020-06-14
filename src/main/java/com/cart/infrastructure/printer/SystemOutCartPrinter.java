@@ -2,13 +2,14 @@ package com.cart.infrastructure.printer;
 
 import com.cart.domain.CartItem;
 import com.cart.domain.CartSummary;
+import com.cart.domain.printer.CartPrinter;
 
 import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
 
-public class SystemOutPrinter implements Printer {
+public class SystemOutCartPrinter implements CartPrinter {
     @Override
     public String print(CartSummary cartSummary) {
         Map<String, List<CartItem>> productByCategoryMap = cartSummary.getCartItems().stream().collect(groupingBy(CartItem::getCategoryTitle));

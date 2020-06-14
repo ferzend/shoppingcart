@@ -1,4 +1,4 @@
-package com.cart.infrastructure.delivery;
+package com.cart.domain.delivery;
 
 import com.cart.domain.delivery.DeliveryCost;
 

@@ -27,6 +27,30 @@ public class ShoppingCartTest {
     private Coupon coupon;
 
     @Test
+    public void shouldUpdateProductQuantity_whenProductIsExist() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 5);
+        shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 2);
+
+        int totalQuantity = shoppingCart.getCartItems().get(0).getQuantity();
+
+        assertThat(totalQuantity).isEqualTo(7);
+        assertThat(shoppingCart.getNumberOfProduct()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldCreateNewProduct_whenProductIsNotExist() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 5);
+        shoppingCart.addProduct(MOUSE_BY_COMPUTER_CATEGORY, 2);
+
+        int totalQuantity = shoppingCart.getCartItems().get(0).getQuantity();
+
+        assertThat(totalQuantity).isEqualTo(5);
+        assertThat(shoppingCart.getNumberOfProduct()).isEqualTo(2);
+    }
+
+    @Test
     public void shouldReturnNumberOfDifferentProducts() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addProduct(APPLE_BY_ELECTRONIC_CATEGORY, 5);

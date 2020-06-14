@@ -15,6 +15,10 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public void incrementQuantityBy(int quantity) {
+        this.quantity += quantity;
+    }
+
     public int getCategoryId() {
         return product.getCategory().getCategoryId();
     }

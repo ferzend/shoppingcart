@@ -1,4 +1,4 @@
-package com.cart.infrastructure.campaign;
+package com.cart.domain.campaign;
 
 import com.cart.domain.campaign.Coupon;
 import com.cart.domain.campaign.Discount;

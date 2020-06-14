@@ -1,7 +1,6 @@
 package com.cart.domain.delivery;
 
 import com.cart.domain.ShoppingCart;
-import com.cart.infrastructure.delivery.DeliveryService;
 
 import java.math.BigDecimal;
 
