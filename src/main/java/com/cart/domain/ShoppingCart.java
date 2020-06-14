@@ -37,7 +37,7 @@ public class ShoppingCart {
                 }
             }
 
-            couponDiscount = couponDiscount.add(mostProfitableDiscount);
+            campaignDiscount = campaignDiscount.add(mostProfitableDiscount);
         }
     }
 

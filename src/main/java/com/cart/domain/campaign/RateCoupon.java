@@ -9,7 +9,7 @@ public class RateCoupon extends Coupon {
 
     public BigDecimal getApplicableDiscount(BigDecimal totalPriceOfProducts) {
         if (isApplicable(totalPriceOfProducts)) {
-            totalPriceOfProducts.multiply(BigDecimal.valueOf(getDiscount())).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_UP);
+             return totalPriceOfProducts.multiply(BigDecimal.valueOf(getDiscount())).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_UP);
         }
         return BigDecimal.ZERO;
     }
